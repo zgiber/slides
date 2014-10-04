@@ -1,0 +1,69 @@
+JSON serialization in Go
+Go Meetup 2014 Oct @ Prezi
+
+Zoltan Giber
+
+zgiber@gmail.com
+
+* JSON
+- A very common format for back-end - browser communication
+- Human readable
+- Built on name/value pairs and ordered list
+- It's not for: channel, complex, function types or cyclic data structures
+ 
+For a complete reference: [[json.org]]
+A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
+
+* Simple usage
+- json.Marshal
+- json.Unmarshal
+* Write your own
+- json.Marshaler & json.Unmarshaler interfaces
+- Encode or decode into something different
+* Make it print pretty
+- json.Indent
+* Make it compact
+- json.Compact
+example:
+
+#.play ./rawjson/rawjson.go  /stop OMIT/,/start OMIT/
+* Arbitrary data
+- decodes into map[string]interface{}
+example:
+
+* Handle JSON streams
+json.Encoder
+
+ func NewEncoder(w io.Writer) *Encoder
+
+json.Decoder
+
+ func NewDecoder(r io.Reader) *Decoder
+
+example:
+ 
+* Nested structures
+- Encoding is simple
+- Defined structs
+- Arbitrary json
+* RawMessage
+ type RawMessage []byte
+Use it:
+
+- When you'd rather keep a nested field in JSON format
+- When you need the information from a field for handling nested fields
+
+* Tags
+- Rename fields
+- Omit empty
+
+
+#.code x.go /^func main/,/^}/
+#.play y.go
+#.image image.jpg
+#.iframe http://foo
+#.link http://foo label
+#.html file.html
+#.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
+
+#Again, more text
