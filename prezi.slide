@@ -14,19 +14,24 @@ zgiber@gmail.com
 For a complete reference: [[json.org]]
 A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
 
-* Simple usage
+* The simplest usage
 - json.Marshal
 - json.Unmarshal
+* Make it print pretty
+- json.Indent
+.code ./examples/pretty/pretty.go /stop OMIT/,/start 
+.play ./examples/pretty/pretty.go /stop1 OMIT/,/start1 OMIT/
 * Write your own
 - json.Marshaler & json.Unmarshaler interfaces
 - Encode or decode into something different
-* Make it print pretty
-- json.Indent
+.code ./examples/pretty/pretty.go /stop2 OMIT/,/start2 OMIT/
+MarshalJSON enables the cat to be marhsalled as an animal (instead of just a serial cat)
+
 * Make it compact
 - json.Compact
-example:
+- It's a simple way to save some bytes
+.play ./examples/compact/compact.go /stop OMIT/,/start OMIT/
 
-#.play ./rawjson/rawjson.go  /stop OMIT/,/start OMIT/
 * Arbitrary data
 - decodes into map[string]interface{}
 example:
