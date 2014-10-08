@@ -14,9 +14,15 @@ zgiber@gmail.com
 For a complete reference: [[json.org]]
 A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
 
-* The simplest usage
-- json.Marshal
-- json.Unmarshal
+* json.Marshal
+- encoding/json uses reflection
+- Only exported fields get encoded and decoded to (watch out for Cap)
+.play ./examples/marshalcat/marshalcat.go /stop OMIT/,/start OMIT/
+
+* json.Unmarshal
+- Same rules apply..
+.play ./examples/unmarshark/unmarshark.go /stop OMIT/,/start OMIT/
+
 * Make it print pretty
 - json.Indent
 .code ./examples/pretty/pretty.go /stop OMIT/,/start 
@@ -30,6 +36,7 @@ MarshalJSON enables the cat to be marhsalled as an animal (instead of just a ser
 * Make it compact
 - json.Compact
 - It's a simple way to save some bytes
+- Appends to a buffer
 .play ./examples/compact/compact.go /stop OMIT/,/start OMIT/
 
 * Arbitrary data
