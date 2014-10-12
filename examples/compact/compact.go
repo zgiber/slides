@@ -8,18 +8,18 @@ import (
 
 // stop OMIT
 func main() {
-	cat := `
+	animal := `
 {
-  "Kind": "cat",
+  "Kind": "shark",
   "Properties": {
-    "Legs": 4,
-    "MaxSpeed": 48,
-    "Name": "Merin"
+    "Fins": 6,
+    "MaxDepth": 3700,
+    "Name": "Joe"
   }
 }
 `
 	b := bytes.Buffer{}
-	json.Compact(&b, []byte(cat))
+	json.Compact(&b, []byte(animal))
 	fmt.Println(string(b.Bytes()))
 }
 

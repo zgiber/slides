@@ -19,7 +19,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("%s the shark has %v fins so he can swim %vm deep.\n",
+	fmt.Printf("%s the shark has %v fins.\nHe can swim %vm deep.\n",
 		s.Name, s.Fins, s.MaxDepth)
 }
 

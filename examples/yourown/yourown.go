@@ -38,16 +38,11 @@ type cat struct {
 
 // pretty print a json string of a struct using json.Indent()
 // stop1 OMIT
-func prettyPrint(s []byte) string {
+func (self *cat) String() string {
+	s, _ := json.Marshal(self)
 	var pretty bytes.Buffer
 	json.Indent(&pretty, s, "", "  ")
 	return string(pretty.Bytes())
-}
-
-// Note: you can use any variable name instead of self
-func (self *cat) String() string {
-	s, _ := json.Marshal(self)
-	return prettyPrint(s)
 }
 
 // start1 OMIT
@@ -66,6 +61,21 @@ func (self *shark) MarshalJSON() ([]byte, error) {
 	}
 	return json.Marshal(a)
 }
+
+// stop2 OMIT
+func (self *cat) MarshalJSON() ([]byte, error) {
+	a := animal{
+		Kind: "cat",
+		Properties: cat{
+			Legs:     self.Legs,
+			MaxSpeed: self.MaxSpeed,
+			Name:     self.Name,
+		},
+	}
+	return json.Marshal(a)
+}
+
+// start2 OMIT
 
 func newShark() *shark {
 	s := shark{

@@ -1,13 +1,25 @@
 JSON serialization in Go
-Go Meetup 2014 Oct @ Prezi
+Go Meetup 2014 Oct
 
-Zoltan Giber
+Zoltan Giber 
+Backend Developer at Cubilog
 
 zgiber@gmail.com
 
+* 
+- Few words about JSON
+- The basics: json.Marshal & json.Unmarshal
+- Add flexibility by using tags
+- Formatting JSON output (pretty vs. compact)
+- Nested data structures
+- Decoding arbitrary data
+- Writing your own: json.Marshaler & json.Unmarshaler interfaces
+- Partial decoding with json.RawMessage type
+
 * JSON
-- A very common format for back-end - browser communication
-- Human readable
+- Common format for backend - browser communication, configuration etc.
+- It's human readable 
+- Relatively easy to debug
 - Built on name/value pairs and ordered list
 - It's not for: channel, complex, function types or cyclic data structures
  
@@ -15,23 +27,28 @@ For a complete reference: [[json.org]]
 A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
 
 * json.Marshal
-- encoding/json uses reflection
-- Only exported fields get encoded and decoded to (watch out for Cap)
+- Uses reflection, requiring exported (public) fields on the struct.
+- First character of the struct's field name is upper case (exported)
+ func Marshal(v interface{}) ([]byte, error)
 .play ./examples/marshalcat/marshalcat.go /stop OMIT/,/start OMIT/
 
 * json.Unmarshal
-- Same rules apply..
+- Same rules apply
+- The struct must be passed as a pointer
+ func Unmarshal(data []byte, v interface{}) error
 .play ./examples/unmarshark/unmarshark.go /stop OMIT/,/start OMIT/
+
+* Tags
+- Rename fields
+- Omit empty
+- Omit a field with "-"
+.play ./examples/tags/tags.go /stop OMIT/,/start OMIT/
+.play ./examples/tags/tags.go /stop1 OMIT/,/start1 OMIT/
 
 * Make it print pretty
 - json.Indent
 .code ./examples/pretty/pretty.go /stop OMIT/,/start 
 .play ./examples/pretty/pretty.go /stop1 OMIT/,/start1 OMIT/
-* Write your own
-- json.Marshaler & json.Unmarshaler interfaces
-- Encode or decode into something different
-.code ./examples/pretty/pretty.go /stop2 OMIT/,/start2 OMIT/
-MarshalJSON enables the cat to be marhsalled as an animal (instead of just a serial cat)
 
 * Make it compact
 - json.Compact
@@ -39,43 +56,37 @@ MarshalJSON enables the cat to be marhsalled as an animal (instead of just a ser
 - Appends to a buffer
 .play ./examples/compact/compact.go /stop OMIT/,/start OMIT/
 
+* Encoding nested structures
+- Not much different than flat structs
+.code ./examples/nested/encode/nested.go /stop OMIT/,/start OMIT/
+.play ./examples/nested/encode/nested.go /stop1 OMIT/,/start1 OMIT/
+* Decoding nested structures
+.code ./examples/nested/decode/nested.go /stop OMIT/,/start OMIT/
+.play ./examples/nested/decode/nested.go /stop1 OMIT/,/start1 OMIT/
+- What if the JSON structure is unknown?
+
 * Arbitrary data
-- decodes into map[string]interface{}
+- Remember? Everything implements (empty) interface{}
+- JSON Decodes into map[string]interface{}
+- Requires type assertion to access underlying type
+.code ./examples/arbitrary/arbitrary.go /stop OMIT/,/start OMIT/
+.code ./examples/arbitrary/arbitrary.go /stop1 OMIT/,/start1 OMIT/
+.play ./examples/arbitrary/arbitrary.go /stop2 OMIT/,/start2 OMIT/
+
+* Write your own
+- json.Marshaler & json.Unmarshaler interfaces
+- Encode or decode into something different
+.code ./examples/yourown/yourown.go /stop OMIT/,/start OMIT/
+.play ./examples/yourown/yourown.go /stop2 OMIT/,/start2 OMIT/
+
+* Decode JSON streams
+- Yielding Multiple objects vs. a single block.
+- Using io.Reader interface (e.g. files, http responses, tcp connections)
 example:
 
-* Handle JSON streams
-json.Encoder
-
- func NewEncoder(w io.Writer) *Encoder
-
-json.Decoder
-
- func NewDecoder(r io.Reader) *Decoder
-
-example:
- 
-* Nested structures
-- Encoding is simple
-- Defined structs
-- Arbitrary json
 * RawMessage
  type RawMessage []byte
 Use it:
 
 - When you'd rather keep a nested field in JSON format
 - When you need the information from a field for handling nested fields
-
-* Tags
-- Rename fields
-- Omit empty
-
-
-#.code x.go /^func main/,/^}/
-#.play y.go
-#.image image.jpg
-#.iframe http://foo
-#.link http://foo label
-#.html file.html
-#.caption _Gopher_ by [[http://www.reneefrench.com][Renée French]]
-
-#Again, more text
