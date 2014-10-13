@@ -79,14 +79,19 @@ A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
 .code ./examples/yourown/yourown.go /stop OMIT/,/start OMIT/
 .play ./examples/yourown/yourown.go /stop2 OMIT/,/start2 OMIT/
 
-* Decode JSON streams
-- Yielding Multiple objects vs. a single block.
-- Using io.Reader interface (e.g. files, http responses, tcp connections)
-example:
+* Encoding into a JSON stream
+- Uses the io.Writer interface
+- Files, connections, buffers are all implementing io.Writer
+.play ./examples/usingfile/usingfile.go /stop OMIT/,/start OMIT/
+[[http://127.0.0.1:3999/animals.json]]
+
+* Decoding a JSON stream
+- Multiple objects vs. a single array
+- Let's see an http get example
+.play ./examples/httpget/httpget.go /stop OMIT/,/start OMIT/
+
 
 * RawMessage
  type RawMessage []byte
-Use it:
-
-- When you'd rather keep a nested field in JSON format
-- When you need the information from a field for handling nested fields
+- If you don't want to decode a field at the moment but need the data later
+.play ./examples/rawmessage/rawmessage.go /stop OMIT/,/start OMIT/
