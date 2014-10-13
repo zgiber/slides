@@ -79,13 +79,13 @@ A great reading about JSON in go: [[http://blog.golang.org/json-and-go]]
 .code ./examples/yourown/yourown.go /stop OMIT/,/start OMIT/
 .play ./examples/yourown/yourown.go /stop2 OMIT/,/start2 OMIT/
 
-* Encoding into a JSON stream
+* Encoding into a JSON stream with json.Encoder
 - Uses the io.Writer interface
 - Files, connections, buffers are all implementing io.Writer
 .play ./examples/usingfile/usingfile.go /stop OMIT/,/start OMIT/
 [[http://127.0.0.1:3999/animals.json]]
 
-* Decoding a JSON stream
+* Decoding a JSON stream with json.Decoder
 - Multiple objects vs. a single array
 - Let's see an http get example
 .play ./examples/httpget/httpget.go /stop OMIT/,/start OMIT/

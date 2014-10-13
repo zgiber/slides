@@ -1,7 +1,7 @@
 my name is
 
-Cubilog is a data acquisition & control hardware with cloud based processing. We deal with different kinds of sensor data, ranging from temperature to ph level. Many time we use json serialization to deliver this data.
+Cubilog is a data acquisition & control hardware with cloud based processing. We deal with different kinds of sensor data, ranging from temperature to ph level. Many time we use json serialization to move this data between services and servers.
 
-The following few minutes will be about why, and most of all; how we do that.
+The following few minutes will be about why, and most of all; how we can do that with Go.
 
 https://play.golang.org/p/uMlQejFZTd
